@@ -1,5 +1,5 @@
 pkgname="dern"
-pkgver="0.0.3"
+pkgver="0.0.4"
 pkgrel="1"
 pkgdesc="anonymous volatile chat platform"
 arch=("x86_64")
@@ -9,8 +9,8 @@ license=("MIT")
 source=("exertive-ts-${pkgver}::https://github.com/dern-chat/exertive-ts/archive/refs/tags/v${pkgver}.tar.gz"
         "chatter-react-${pkgver}::https://github.com/dern-chat/chatter-react/archive/refs/tags/v${pkgver}.tar.gz"
 )
-sha256sums=("SKIP"
-            "SKIP"
+sha256sums=("c22d6528287e7aaad37e1b51b87ddb2e789ce7e68b28ee1a9e113e4017322838"
+            "269ac68a87c8993130338757c0812e43f22037472607fa5d595fbf8c71749e03"
 )
 
 _ensure_local_nvm() {
@@ -48,7 +48,6 @@ package() {
     echo "(tor -f torrc --quiet &)" >> "${srcdir}/dern.sh"
     echo "domain=\$(cat /var/lib/tor/dern/hostname)" >> "${srcdir}/dern.sh"
     echo "echo onion domain: \$domain" >> "${srcdir}/dern.sh"
-    echo "sed -i 's+http://127.0.0.1:2323+'"http://\$domain"'+g' /opt/dern/exertive-ts-${pkgver}/dist/public/assets/index-*.js" >> "${srcdir}/dern.sh"
     echo "sed -i 's+http://127.0.0.1:2323+'"http://\$domain"'+g' /opt/dern/exertive-ts-${pkgver}/public/assets/index-*.js" >> "${srcdir}/dern.sh"
     echo "yarn start"  >> "${srcdir}/dern.sh"
     cp "${srcdir}/dern.sh" "${pkgdir}/usr/bin/dern"
